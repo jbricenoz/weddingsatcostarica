@@ -1,5 +1,5 @@
-import bg from './bg_wedding.png';
-import bg_card from './card_wedding.png';
+import bg from '../pages/margieandjoshua/bg_wedding.png';
+import bg_card from '../pages/margieandjoshua/card_wedding.png';
 
 export interface FontConfig {
   family: string;
@@ -55,7 +55,7 @@ export interface Config {
   }[];
 }
 
-export const config: Config = {
+export const values:Config  = {
   backgroundImage: {
     url: bg.src,
     opacity: 0.1

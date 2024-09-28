@@ -3,8 +3,24 @@
 import React, { useState, useEffect } from 'react'
 import { motion, useAnimation, useMotionValue, useTransform, useSpring } from "framer-motion"
 import { Card } from "@/components/ui/card"
-import { config, FontConfig } from './config'
-import { FooterLinks } from './footer'
+import { values, FontConfig } from '../../lib/data'
+import { MapPin, Bell, Mail } from 'lucide-react'
+import { FooterLink as FooterLinkType } from '../../lib/data'
+
+const FooterLink: React.FC<FooterLinkType> = ({ text, url, icon }) => {
+  const IconComponent = icon === 'Mail' ? Mail : icon === 'MapPin' ? MapPin : Bell
+
+  return (
+    <a 
+      href={url}
+      target='_blank'
+      className="text-gray-400 hover:text-gray-600 transition-colors flex items-center text-xs sm:text-sm"
+    >
+      <IconComponent className="mr-1" size={12} />
+      {text}
+    </a>
+  )
+}
 
 const TypewriterEffect: React.FC<{ text: string; delay?: number; font: FontConfig; customStyle?:string; onComplete?: () => void }> = ({ text, delay = 0, font, customStyle, onComplete }) => {
   const controls = useAnimation()
@@ -186,9 +202,9 @@ export default function WeddingInvitation() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-between bg-white p-4 relative overflow-hidden">
       <style jsx global>{`
-        ${config.fontUrls.map(url => `@import url('${url}');`).join('\n')}
+        ${values.fontUrls.map(url => `@import url('${url}');`).join('\n')}
       `}</style>
-      <BackgroundImage imageUrl={config.backgroundImage.url} opacity={config.backgroundImage.opacity} />
+      <BackgroundImage imageUrl={values.backgroundImage.url} opacity={values.backgroundImage.opacity} />
       <div className="flex-grow flex items-center justify-center w-full">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -199,17 +215,17 @@ export default function WeddingInvitation() {
           <Card className="w-full h-full bg-white overflow-hidden rounded-none relative" style={{
             boxShadow: '0 1px 1px rgba(0,0,0,0.15), 0 2px 2px rgba(0,0,0,0.15), 0 4px 4px rgba(0,0,0,0.15), 0 8px 8px rgba(0,0,0,0.15)'
           }}>
-            {config.cardBackgroundImage.enabled && (
+            {values.cardBackgroundImage.enabled && (
               <BackgroundImage 
-                imageUrl={config.cardBackgroundImage.url} 
-                opacity={config.cardBackgroundImage.opacity} 
+                imageUrl={values.cardBackgroundImage.url} 
+                opacity={values.cardBackgroundImage.opacity} 
               />
             )}
             
             <div className="relative h-full flex flex-col justify-between z-10 p-16 sm:p-14 md:p-20 lg:p-28">
               {/* Floating hearts */}
               {[...Array(10)].map((_, i) => (
-                <FloatingHeart key={i} delay={i * 0.5} svg={config.floatingHeartSvg} />
+                <FloatingHeart key={i} delay={i * 0.5} svg={values.floatingHeartSvg} />
               ))}
               
               {/* Content wrapper */}
@@ -223,9 +239,9 @@ export default function WeddingInvitation() {
                 <div className="text-center mb-4 sm:mb-6 md:mb-8">
                   <div className="mb-1 lg:mb-2" style={{ lineHeight: 0.8  }}>
                     <TypewriterEffect 
-                      text={config.texts.invited.content} 
+                      text={values.texts.invited.content} 
                       font={{
-                        ...config.texts.invited.font,
+                        ...values.texts.invited.font,
                         size: "text-md sm:text-lg md:text-xl lg:text-2xl"
                       }}
                       customStyle='line-height: 0.7;'
@@ -233,9 +249,9 @@ export default function WeddingInvitation() {
                   </div>
                   <div style={{ lineHeight: 0.8  }}>
                     <TypewriterEffect 
-                      text={config.texts.toTheWeddingOf.content} 
+                      text={values.texts.toTheWeddingOf.content} 
                       font={{
-                        ...config.texts.toTheWeddingOf.font,
+                        ...values.texts.toTheWeddingOf.font,
                         size: "text-md sm:text-lg md:text-xl lg:text-3xl"
                       }}
                     customStyle='line-height: 0.7;'
@@ -244,28 +260,28 @@ export default function WeddingInvitation() {
                 </div>
 
                 {/* Center section */}
-                <div className="flex flex-col items-center justify-center flex-grow space-y-2"  style={{ lineHeight: 0.4  }}>
+                <div className="flex flex-col items-center justify-center flex-grow space-y-2 text-rose-800"  style={{ lineHeight: 0.4  }}>
                   <TypewriterEffect 
-                    text={config.texts.coupleNames.firstPerson} 
+                    text={values.texts.coupleNames.firstPerson} 
                     font={{
-                      ...config.texts.coupleNames.font,
+                      ...values.texts.coupleNames.font,
                       size: "text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
                     }}
                     customStyle='line-height: 0.6;'
                     // customStyle="ml-2 sm:ml-3 md:ml-4 lg:ml-6"
                   />
                   <TypewriterEffect 
-                    text={config.texts.coupleNames.ampersand} 
+                    text={values.texts.coupleNames.ampersand} 
                     font={{
-                      ...config.texts.coupleNames.font,
+                      ...values.texts.coupleNames.font,
                       size: "text-md xs:text-md sm:text-md md:text-2xl lg:text-3xl"
                     }}
                     customStyle="ml-3 sm:ml-3 md:ml-4 lg:ml-6"
                   />
                   <TypewriterEffect 
-                    text={config.texts.coupleNames.secondPerson} 
+                    text={values.texts.coupleNames.secondPerson} 
                     font={{
-                      ...config.texts.coupleNames.font,
+                      ...values.texts.coupleNames.font,
                       size: "text-4xl xs:text-md sm:text-5xl md:text-6xl lg:text-7xl"
                     }}
                     customStyle='line-height: 0.6 !important;'
@@ -277,27 +293,27 @@ export default function WeddingInvitation() {
                 <div className="text-center mt-4 sm:mt-6 md:mt-8">
                   <div className="mb-2">
                     <TypewriterEffect 
-                      text={config.texts.date.content} 
+                      text={values.texts.date.content} 
                       font={{
-                        ...config.texts.date.font,
+                        ...values.texts.date.font,
                         size: "text-lg sm:text-sm md:text-lg lg:text-2xl"
                       }}
                     />
                   </div>
                   <div className="mb-2">
                     <TypewriterEffect 
-                      text={config.texts.location.content} 
+                      text={values.texts.location.content} 
                       font={{
-                        ...config.texts.location.font,
+                        ...values.texts.location.font,
                         size: "text-lg sm:text-sm md:text-base lg:text-xl"
                       }}
                     />
                   </div>
                   <div>
                     <TypewriterEffect 
-                       text={config.texts.giftText.content} 
+                       text={values.texts.giftText.content} 
                        font={{
-                         ...config.texts.giftText.font,
+                         ...values.texts.giftText.font,
                          size: "text-xs sm:text-sm md:text-base lg:text-xs"
                        }}
                     />
@@ -314,7 +330,16 @@ export default function WeddingInvitation() {
         animate={{ opacity: showFooter ? 1 : 0, y: showFooter ? 0 : 20 }}
         transition={{ duration: 0.5 }}
       >
-        <FooterLinks links={config.footerLinks} />
+            <div className="flex flex-wrap justify-center items-center space-x-2 mb-2">
+          {values.footerLinks.map((link, index) => (
+            <React.Fragment key={link.text}>
+              {link.enabled && <FooterLink {...link} />}
+              {index < values.footerLinks.length - 1 && link.enabled && values.footerLinks[index + 1].enabled && (
+                <span className="text-gray-400">|</span>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
         <div className="text-xs text-gray-400">
           © 2024 modesignstudio.co
         </div>
