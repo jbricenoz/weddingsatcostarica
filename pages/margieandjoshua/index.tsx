@@ -33,7 +33,7 @@ const TypewriterEffect: React.FC<{ text: string; delay?: number; font: FontConfi
       })
 
       await controls.start({
-        clipPath: 'inset(-20px -5% -20px -20px)',
+        clipPath: 'inset(-25px -5% -25px -25px)',
         transition: { duration: 1, ease: "easeInOut" }
       })
 
