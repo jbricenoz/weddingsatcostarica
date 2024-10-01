@@ -133,7 +133,7 @@ export default function SaveTheDateCard({
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{
           backgroundImage: `url(${backgroundImage})`,
-          opacity: 0.3
+          opacity: 0.1
         }}
       />
       <div className="flex-grow flex items-center justify-center w-full z-10">
