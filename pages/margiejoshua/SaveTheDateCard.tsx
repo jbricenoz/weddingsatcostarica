@@ -150,13 +150,13 @@ export default function SaveTheDateCard({
               >
                 <div className="text-center">
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.5 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, ease: "easeInOut", delay: 0.5 }}
                   >
                     <TypewriterEffect
                       text={loadingText}
-                      delay={100}
+                      delay={60}
                       className={`${greatVibes.className} text-3xl sm:text-4xl md:text-5xl text-black block`}
                     />
                   </motion.div>
